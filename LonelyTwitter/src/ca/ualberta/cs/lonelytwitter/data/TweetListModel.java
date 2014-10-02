@@ -1,6 +1,7 @@
 package ca.ualberta.cs.lonelytwitter.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import ca.ualberta.cs.lonelytwitter.AbstractTweet;
@@ -24,7 +25,14 @@ public class TweetListModel {
 	 *            Tweet to be appended to this list
 	 */
 	public void addTweet(AbstractTweet tweet) {
-		// TODO: Add only when it is not a duplicate
+		
+		Iterator<AbstractTweet> mylist = tweets.listIterator();
+		while(mylist.hasNext()){
+			AbstractTweet twit = (AbstractTweet) mylist.next();
+			if(twit.getTweetBody().equals(tweet.getTweetBody())){ 
+				throw new IllegalArgumentException( "Repeated Tweet");
+				}
+		}
 		tweets.add(tweet);
 	}
 
@@ -34,8 +42,8 @@ public class TweetListModel {
 	 * @return the number of tweets in this list
 	 */
 	public int getCount() {
-		// TODO: return real count
-		return 0;
+		
+		return tweets.size();
 	}
 
 	/**
@@ -46,7 +54,14 @@ public class TweetListModel {
 	 * @return true if this list contains the specified element
 	 */
 	public boolean hasTweet(AbstractTweet tweet) {
-		// TODO: Find if the tweet already exists
+		
+		Iterator<AbstractTweet> mylist = tweets.listIterator();
+		while(mylist.hasNext()){
+			AbstractTweet twit = (AbstractTweet) mylist.next();
+			if(twit.getTweetBody().equals(tweet.getTweetBody())){ 
+				return true;
+				}
+		}
 		return false;
 	}
 
@@ -58,7 +73,7 @@ public class TweetListModel {
 	 *            Tweet to be removed from this list, if present.
 	 */
 	public void removeTweet(AbstractTweet tweet) {
-		// TODO: Remove tweet
+		tweets.remove(tweet);
 	}
 
 	/**
@@ -68,8 +83,12 @@ public class TweetListModel {
 	 * @return an array containing the tweets of the list.
 	 */
 	public AbstractTweet[] getTweets() {
-		// TODO: return sorted list of tweets
-		return null;
+		
+		AbstractTweet[] newArray = new AbstractTweet[tweets.size()];
+		for(Integer i = 0;i.equals(tweets.size()-1);i++){
+			newArray[i] = tweets.get(i);
+		}
+		return newArray;
 	}
 
 	/**
